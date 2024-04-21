@@ -1,10 +1,10 @@
 import { googleImage } from  '@bochilteam/scraper' 
 var handler = async (m, { conn, text, usedPrefix, command }) => {
-    if (!text) throw `للإستخدام *مثال*: ${usedPrefix}${command} dark man`
+    if (!text) throw `للإستخدام*مثال*: ${usedPrefix}${command} نيزوكو`
     const res = await googleImage(text)
     let image = res.getRandom()
     let link = image
-    conn.sendFile(m.chat, link,  'google.jpg' , `*Miku Bot*
+    conn.sendFile(m.chat, link,  'google.jpg' , `*𝑁𝐸𝑍𝑈𝐾𝛩–𝐵𝛩𝑇*
 🔎 النتيجة: *${text}*
 🌎 الصورة مأخوذة من جوجل
 `,m)
