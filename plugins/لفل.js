@@ -23,6 +23,8 @@ let before = user.level * 1
 while (canLevelUp(user.level, user.exp, global.multiplier)) user.level++
 if (before !== user.level) {
 let teks = `🎊 عاش يحب ${conn.getName(m.sender)} المستوي:`
+	let fkontak = { "key": { "participants":"0@s.whatsapp.net", "remoteJid": "status@broadcast", "fromMe": false, "id": "Halo" }, "message": { "contactMessage": { "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` }}, "participant": "0@s.whatsapp.net" }
+	
 let str = `
 *❐═━━━═╊⊰🔝⊱╉═━━━═❐*
 
@@ -33,7 +35,7 @@ let str = `
 `.trim()
 try {
 const img = await levelup(teks, user.level)
-conn.sendFile(m.chat, img, 'levelup.jpg', str, m)
+conn.sendFile(m.chat, img, 'levelup.jpg', str,fkontak )
 } catch (e) {
 m.reply(str)
 }
