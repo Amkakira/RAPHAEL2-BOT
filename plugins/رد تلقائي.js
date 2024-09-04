@@ -16,6 +16,18 @@ let handler = m => m;
      responses = [ 
        '*هلا*',  
      ];
+    }else if (/^لا$/i.test(m.text)) { 
+     responses = [ 
+       '*م بمزاجك*',  
+     ];
+    }else if (/^🗿$/i.test(m.text)) { 
+     responses = [ 
+       '*🗿🗿*',  
+     ];
+    }else if (/^اسكت$/i.test(m.text)) { 
+     responses = [ 
+       '*اجي احط ايدي ف بوقك*',  
+     ];
         }else if (/^احا$/i.test(m.text)) { 
      responses = [ 
        '*شلحها🐦*',  
