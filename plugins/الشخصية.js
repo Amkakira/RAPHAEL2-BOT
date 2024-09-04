@@ -1,4 +1,5 @@
 let handler = async (m, { conn, command, text }) => {
+	let fkontak = { "key": { "participants":"0@s.whatsapp.net", "remoteJid": "status@broadcast", "fromMe": false, "id": "Halo" }, "message": { "contactMessage": { "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` }}, "participant": "0@s.whatsapp.net" }
 	
     if (!text) return conn.reply(m.chat, '*⧉┇ادخل اسم الشخص ┇➪*', m)
 	
@@ -18,7 +19,7 @@ let handler = async (m, { conn, command, text }) => {
 *⏎┇ الــغــبــاء* : ${pickRandom(['6%','12%','20%','27%','35%','41%','49%','54%','60%','66%','73%','78%','84%','92%','93%','94%','96%','98,3%','99,7%','99,9%','1%','2,9%','0%','0,4%'])}
 *┃❐━═━═✦◈❨🔰❩◈✦═━═━❐┃*
 `
-conn.reply(m.chat, personalidad, m, { mentions: conn.parseMention(personalidad) })
+conn.reply(m.chat, personalidad, m, { mentions: conn.parseMention(personalidad) } , { quoted: fkontak })
 }
 handler.help = ['personalidad *<nombre>*']
 handler.tags = ['fun']
