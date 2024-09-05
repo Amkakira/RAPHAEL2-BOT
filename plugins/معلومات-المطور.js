@@ -47,7 +47,7 @@ let bjir = 'https://i.imgur.com/RbaRjrb.jpeg'
 let name = await conn.getName(who)
 
 let delay = time => new Promise(res => setTimeout(res, time))
-await conn.sendContact(m.chat, [[`201145624848` + `@s.whatsapp.net`, wm]], vn, {
+await conn.sendContact(m.chat, [[`201020639057` + `@s.whatsapp.net`, wm]], vn, {
  contextInfo: { 
  forwardingScore: 2023,
 isForwarded: false, 
