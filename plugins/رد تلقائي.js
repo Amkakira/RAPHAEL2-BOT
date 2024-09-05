@@ -49,22 +49,7 @@ let handler = m => m;
        '*شــوفــلــك كــلـــبــه*',  
      ];
 
-        }else if (/^استماره$/i.test(m.text)) { 
-     responses = [ 
-       '*اكتب.استماره*',  
-     ];
-    }else if (/^استمارة$/i.test(m.text)) { 
-     responses = [ 
-       '*اكتب.استماره*',  
-     ];
-    }else if (/^.استمارة$/i.test(m.text)) { 
-     responses = [ 
-       '*اكتب.استماره وليس .استمارة*',  
-     ];
-        }else if (/^.مطور$/i.test(m.text)) { 
-     responses = [ 
-       '*حط ال*',  
-     ];
+       
        
     }else if (/^بحبك$/i.test(m.text)) { 
      responses = [ 
