@@ -28,6 +28,10 @@ let handler = m => m;
      responses = [ 
        '*🗿🗿*',  
      ];
+    }else if (/^🗿🗿$/i.test(m.text)) { 
+     responses = [ 
+       '*🗿🗿🗿🗿*',  
+     ];
     }else if (/^اسكت$/i.test(m.text)) { 
      responses = [ 
        '*اجي احط ايدي ف بوقك*',  
