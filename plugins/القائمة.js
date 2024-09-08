@@ -33,6 +33,12 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                             id: 'te'
                           },
                             {
+                            header: 'رفـــع حـــظـــر',
+                            title: '',
+                            description: '*كود رفع حظر كل الانواع تقريبا*\n\nالموضوع:שלום\nצוות\nWhatsApp, המספר שלי חסום בבקשה לפתור את הבעיה שלי ולהגיב על ידי הסרת האיסור בהקדם\nהאפשרי\n\nالكود\nשלום צוות התמיכה של WhatsApp, אני אזרח ישראלי והחשבון שלי נחסם על ידי צעיר פלסטיני שמשתמש בגרסאות מתוקנות של WhatsApp. הוא דיווח עליי ונחסמתי בטעות בבקשה המספר שלי מקושר לעבודה שלי וחסם את העבודה שלי בבקשה המשך את האיסור שלי.',
+                            id: 'te'
+                          },
+                            {
                             header: 'بــــانـــد فـــنـــش',
                             title: '',
                             description: 'دا بـانـد الـفـنـش يـقـلـبـي شـغـال نـار طـرش مـن ابـلاغ واحـد\n\n🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽\n\nOlá, minha querida, meu nome é Kimo Afkhai Adraei. Sou um terrorista israelense. Sequestro crianças inocentes e estupro mulheres nas ruas de Gaza. Eu mato adultos e crianças, torturo-os e banho-me em seu sangue. haxixe narcótico dos Estados Unidos da América para Israel Agora você pode comprar haxixe e drogas conosco através do WhatsApp, a empresa terrorista ⛔️⛔️❌ Contate-nos agora pelo nosso número. 👇👇 https://api.whatsapp.com/send?phone=+20',
