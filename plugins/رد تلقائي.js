@@ -52,7 +52,10 @@ let handler = m => m;
      responses = [ 
        '*شــوفــلــك كــلـــبــه*',  
      ];
-
+}else if (/^احبك$/i.test(m.text)) { 
+     responses = [ 
+       '*عييييب ي خرووووف*',  
+     ];
        
        
     }else if (/^بحبك$/i.test(m.text)) { 
