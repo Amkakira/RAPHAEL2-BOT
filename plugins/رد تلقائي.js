@@ -8,9 +8,9 @@ let handler = m => m;
      responses = [ 
  '*هــا؟!*'  
      ];
-        }else if (/^سلام عليكم$/i.test(m.text)) { 
+        }else if (/^بعشقك$/i.test(m.text)) { 
      responses = [ 
-       '*وعليكم السلام*',  
+       '*✨خرفان✨*',  
      ];
         }else if (/^هلا$/i.test(m.text)) { 
      responses = [ 
