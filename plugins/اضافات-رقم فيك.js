@@ -71,7 +71,7 @@ let handler = async (m, { conn, text, command, usedPrefix }) => {
     message: {
       interactiveMessage: {
         body: { text: caption },
-        footer: { text: '𝑀𝐼𝑇𝑺𝑈𝑅-𝐵𝛩𝑇' },
+        footer: { text: '𝑀𝐼𝑇𝑺𝑈𝑅–𝐵𝛩𝑇' },
         header: {
           hasMediaAttachment: true,
           imageMessage: media.imageMessage,
@@ -154,7 +154,7 @@ return await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id });
     message: {
       interactiveMessage: {
         body: { text: caption },
-        footer: { text: '𝑀𝐼𝑇𝑺𝑈𝑅-𝐵𝛩𝑇' },
+        footer: { text: '𝑀𝐼𝑇𝑺𝑈𝑅–𝐵𝛩𝑇' },
         header: {
           hasMediaAttachment: true,
           imageMessage: media.imageMessage,
@@ -236,7 +236,7 @@ return await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id });
     message: {
       interactiveMessage: {
         body: { text: caption },
-        footer: { text: '𝑀𝐼𝑇𝑺𝑈𝑅-𝐵𝛩𝑇' },
+        footer: { text: '𝑺𝐻𝐴𝑊𝐴𝑍𝐴-𝐵𝛩𝑇' },
         header: {
           hasMediaAttachment: true,
           imageMessage: media.imageMessage,
@@ -294,3 +294,4 @@ handler.help = ["facknumbar"];
 handler.tags = ["fack"];
 handler.command = /^(رقم)$/i;
 export default handler;
+                               
