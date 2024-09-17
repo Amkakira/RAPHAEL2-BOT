@@ -1,87 +1,144 @@
-import { createHash } from 'crypto'
-import { canLevelUp, xpRange } from '../lib/levelling.js'
-import fetch from 'node-fetch'
-import fs from 'fs'
-const { levelling } = '../lib/levelling.js'
-import moment from 'moment-timezone'
-import { promises } from 'fs'
-import { join } from 'path'
-const time = moment.tz('Egypt').format('HH')
-let wib = moment.tz('Egypt').format('HH:mm:ss')
-//import db from '../lib/database.js'
+import fetch from 'node-fetch'; // Importing fetch for both translation and voice handling.
 
-let handler = async (m, {conn, usedPrefix, usedPrefix: _p, __dirname, text, isPrems}) => {
-    let d = new Date(new Date + 3600000)
-    let fkontak = { "key": { "participants":"0@s.whatsapp.net", "remoteJid": "status@broadcast", "fromMe": false, "id": "Halo" }, "message": { "contactMessage": { "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` }}, "participant": "0@s.whatsapp.net" }
-    
-    let locale = 'ar'
-    let week = d.toLocaleDateString(locale, { weekday: 'long' })
-    let date = d.toLocaleDateString(locale, { day: 'numeric', month: 'long', year: 'numeric' })
-    let _uptime = process.uptime() * 1000
-    let uptime = clockString(_uptime)
-let who = m.quoted ? m.quoted.sender : m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
-if (!(who in global.db.data.users)) throw `✳️ The user is not found in my database`
-    await conn.sendMessage(m.chat, { react: { text: '🌸', key: m.key } })
-let videoUrl = 'https://telegra.ph/file/3fd883bd07a928da99374.mp4';
-  let vn = './media/menu.mp3';
-  const user = global.db.data.users[m.sender];
-  const {money, joincount} = global.db.data.users[m.sender];
-  const {exp, limit, level, role} = 
-    global.db.data.users[m.sender];
-let { min, xp, max } = xpRange(user.level, global.multiplier)
-let username = conn.getName(who)
-let math = max - xp
-let sn = createHash('md5').update(who).digest('hex')
-let totalreg = Object.keys(global.db.data.users).length;
-let rtotalreg = Object.values(global.db.data.users).filter(user => user.registered == true).length 
-let more = String.fromCharCode(8206)
-let readMore = more.repeat(900) 
-  const taguser = '@' +  m.sender.split('@s.whatsapp.net')[0];
-let str = ` 
-*⧠━──━⧈⇓《🌸》⇓⧈━──━⧠*
-*⧉┇اهلا بك ف بوت مـيـتـســ🌸ـوري┇➥*
+const apiKey = 'a0e2c6022f1aeb28b5020b1dd0faf6ee'; // Your ElevenLabs API Key
 
-*❐↞┇اذا كان امر لا يعمل ابلغ المطور عن طريق امر .بلاغ ┇➥*
+// Function to get available voices from ElevenLabs
+const getVoices = async () => {
+  const url = 'https://api.elevenlabs.io/v1/voices';
+  const options = { method: 'GET', headers: { 'Content-Type': 'application/json', 'xi-api-key': apiKey }};
+  try {
+    const response = await fetch(url, options);
+    const voices = await response.json();
+    return voices;
+  } catch (error) {
+    console.error('حدث خطأ أثناء الحصول على الأصوات:', error);
+    return { voices: [] };
+  }
+};
 
- *❐↞┇لاستخدام امر الشات GPT استخدم امر  .دحيح ┇➥*
-*❂ــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــ*
-*⏎┇ لعرض الاوامر ↞.اوامر  ➪*
-*⏎┇ لعرض المهام  ↞ .المهام ➪*
-*❂ــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــ*
-*⧠━──━⧈⇓《🌸》⇓⧈━──━⧠*
-‬`.trim();
+// Function to convert text to speech using ElevenLabs
+const convertTextToSpeech = async (text, voiceId) => {
+  const url = `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`;
+  const options = { 
+    method: 'POST', 
+    headers: { 'Content-Type': 'application/json', 'xi-api-key': apiKey }, 
+    body: JSON.stringify({ 
+      text: text, 
+      model_id: 'eleven_multilingual_v1',
+      voice_settings: { stability: 0.5, similarity_boost: 0.5 },
+      language: 'ar' // Arabic language
+    })
+  };
+  try {
+    const response = await fetch(url, options);
+    const audioBuffer = await response.buffer();
+    return { audio: audioBuffer };
+  } catch (error) {
+    console.error('حدث خطأ أثناء توليد الصوت:', error);
+    return null;  
+  }
+};
 
-conn.sendMessage(m.chat, {
-        video: { url: videoUrl }, caption: str,
-  mentions: [m.sender,global.conn.user.jid],
-  gifPlayback: true,gifAttribution: 0
-    }, { quoted: fkontak } );
-}; 
-handler.help = ['main']
-handler.tags = ['group']
-handler.command = ['بوت'] 
+// Google Translate function to handle text translation
+const translateGoogle = async (text, sourceLang, targetLang) => {
+  try {
+    const response = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`);
+    const json = await response.json();
+    return json[0][0][0];
+  } catch (error) {
+    throw new Error("خطأ في الترجمة: " + error);
+  }
+};
 
-export default handler
-function clockString(ms) {
-    let h = isNaN(ms) ? '--' : Math.floor(ms / 3600000)
-    let m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
-    let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
-    return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')}
+// Function to clean up translated text
+const cleanTranslation = (translatedText) => {
+  return translatedText.replace(/\s+/g, ' ').trim(); // Clean extra spaces
+};
 
-    function ucapan() {
-      const time = moment.tz('Egypt').format('HH')
-      let res = "بداية يوم سعيده ☀️"
-      if (time >= 4) {
-        res = "صباح الخير 🌄"
-      }
-      if (time >= 10) {
-        res = "مساء الخير ☀️"
-      }
-      if (time >= 15) {
-        res = "مساء الخير 🌇"
-      }
-      if (time >= 18) {
-        res = "مساء الخير 🌙"
-      }
-      return res
+// Command mapping for Kurumi
+const commandMapping = {
+  'kurumi': "ميتسوري"
+};
+
+// Main handler function for the command
+const handler = async (message, { conn, text }) => {
+  if (!text) {
+    throw "يرجى إدخال نص للتحدث مع البوت : ميتسوري";
+  }
+
+  let translatedCommand;
+  try {
+    translatedCommand = await translateGoogle("kurumi", 'es', 'en');
+  } catch (error) {
+    throw new Error("حدث خطأ في ترجمة الأمر: " + error);
+  }
+
+  let mappedCommand = commandMapping[translatedCommand.toLowerCase()];
+  if (!mappedCommand) {
+    throw `الأمر '${translatedCommand}' غير مدعوم.`;
+  }
+
+  try {
+    const response = await fetch("https://api.apigratis.site/cai/send_message", {
+      method: "POST",
+      headers: {
+        'Content-Type': "application/json"
+      },
+      body: JSON.stringify({
+        'external_id': "jNFgkSl-JTLsDM4d_twATPlFqLkQU-Odmr6h23_d1Jg",
+        'message': text.trim()
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error("حدث خطأ في HTTP! الحالة: " + response.status);
+    }
+
+    const result = await response.json();
+    if (result.status && result.result && result.result.state === "STATE_OK") {
+      const { replies, character_info } = result.result;
+      const { name: characterName } = character_info;
+
+      // Get available voices and choose voice #2
+      const voices = await getVoices();
+      const voice = voices.voices[1]; // Voice number 2
+
+      for (const reply of replies) {
+        let translatedReply = await translateGoogle(reply.text, 'en', 'ar'); // Translate reply to Arabic
+        translatedReply = cleanTranslation(translatedReply); // Clean and improve translation
+
+        // Convert the translated reply into speech
+        const audio = await convertTextToSpeech(translatedReply, voice.voice_id); // Use voice number 2
+        if (audio) {
+          // Send the translated text + voice note
+          await conn.sendMessage(message.chat, {
+            text: `*${mappedCommand}:* ${translatedReply}`, // Send the translated text
+            contextInfo: {
+              externalAdReply: {
+                title: `${characterName} - C.ai by ɢᴀʙʀɪᴇʟ-ᴊᴛxꜱ`,
+                body: "𝑀𝐼𝑇𝑺𝑈𝑅-𝙰𝙸",
+                thumbnailUrl: "https://i.pinimg.com/564x/07/bd/59/07bd5983131fd16de41b8d8c43661512.jpg",
+                sourceUrl: "channel"
+              }
+            }
+          }, { quoted: message });
+
+          // Send the voice note as well
+          await conn.sendMessage(message.chat, { audio: audio.audio, fileName: `speech.mp3`, mimetype: 'audio/mpeg', ptt: true }, { quoted: message });
         }
+      }
+    } else {
+      throw "حدث خطأ في معالجة الطلب.";
+    }
+  } catch (error) {
+    throw new Error("حدث خطأ في إرسال الرسالة: " + error);
+  }
+};
+
+// Help and command tags in Arabic
+handler.help = ["كورومي <النص>"];
+handler.tags = ['ذكاء_اصطناعي'];
+handler.command = /^(بوت)$/i; // Command is now "كورومي"
+handler.register = true;
+
+export default handler;
