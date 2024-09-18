@@ -16,10 +16,16 @@ let handler = async (m) => {
     }
     //conn.sendButton(m.chat,'*––––––『 WEEKLY 』––––––*', text.trim(), null, [['Profile', ''], ['weekly', '.weekly']],m)
     m.reply(`
-    *_____『 WEEKLY 』_____*
     
-    ▢ *Has received:*
-     ${text}`)
+╭━━🎁━🎁━🎁━━⬣
+┃ *الجائزة الأسبوعية*
+┃ 
+     ${text}
+┃
+╰━━🎁━🎁━🎁━━⬣
+
+    
+    `)
     user.lastweekly = Date.now()
 }
 
