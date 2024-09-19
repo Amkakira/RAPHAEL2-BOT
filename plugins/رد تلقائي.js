@@ -16,6 +16,11 @@ let handler = m => m;
      responses = [ 
        '*هلا*',  
      ];
+
+    }else if (/^🐦‍⬛$/i.test(m.text)) { 
+     responses = [ 
+       '*زنجي ههههه 🐦🫵🏻*',  
+     ];
     }else if (/^🗿🗿🗿$/i.test(m.text)) { 
      responses = [ 
        '*🗿🗿🗿🗿🗿🗿*',  
