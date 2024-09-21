@@ -20,7 +20,7 @@ let handler = async (m, { conn, command, args, usedPrefix }) => {
                         mediaUrl: null,
                         mediaType: 1,
                         description: null,
-                        title: '😻 سوبر جتا بوت - بحث جوجل ',
+                        title: '😻 سوبر ميتسوري بوت - بحث جوجل ',
                         body: '🔍 نتائج البحث من جوجل',
                         previewType: 0,
                         thumbnail: imagen4,
