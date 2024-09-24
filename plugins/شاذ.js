@@ -1,17 +1,11 @@
-import util from 'util'
-import path from 'path'
-let user = a => '@' + a.split('@')[0]
-function handler(m, { groupMetadata, command, conn, text, usedPrefix}) {
-let ps = groupMetadata.participants.map(v => v.id)
-let a = ps.getRandom()
-let k = Math.floor(Math.random() * 70);
-let top = `*${user(a)}🏳️‍🌈انــت هــو اكبر شاذ*`.trim()
-conn.sendFile (m.reply (top, null, { mentions: [a]}))}
-handler.help = handler.command = ['شاذ']
-handler.tags = ['fun']
-handler.group = true
-handler.limit = 0
-export default handler
-function pickRandom(list) {
-return list[Math.floor(Math.random() * list.length)]}
-
+const handler = async (m, {conn}) => {
+  const who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender;
+  await conn.sendFile(m.chat, global.API('https://some-random-api.com', '/canvas/gay', {
+    avatar: await conn.profilePictureUrl(who, 'image').catch((_) => 'https://telegra.ph/file/24fa902ead26340f3df2c.png'),
+  }), 'error.png', '*احا الوان 🐧💔؟*', m);
+  //await conn.sendMessage(m.chat, {fileName: `error.mp3`, ptt: true}, {quoted: m});
+};
+handler.help = ['gay'];
+handler.tags = ['maker'];
+handler.command = /^(الوان|شاذ)$/i;
+export default handler;
